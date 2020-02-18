@@ -110,6 +110,31 @@ To enable this feature, ``airflow.cfg`` must be configured as follows:
 
 In the above example, Airflow will try to use ``S3Hook('MyS3Conn')``.
 
+.. _write-logs-localstack:
+
+Writing Logs to LocalStack S3
+-------------------------
+
+
+Enabling remote logging
+'''''''''''''''''''''''
+
+To enable this feature, ``airflow.cfg`` must be configured as follows:
+
+.. code-block:: ini
+
+    [logging]
+    # Airflow can store logs remotely in AWS S3. Users must supply a remote
+    # location URL (starting with either 's3://...') and an Airflow connection
+    # id that provides access to the storage location.
+    remote_logging = True
+    remote_base_log_folder = s3://my-bucket/path/to/logs
+    remote_log_conn_id = MyS3Conn
+    # Use server-side encryption for logs stored in S3
+    encrypt_s3_logs = False
+
+Create an S3 entry in airflow admin console with `{"region_name": "us-east-1", "aws_access_key_id": "foo", "aws_secret_access_key": "bar", "host": "http://localstack:4572"}` as extra.
+
 .. _write-logs-azure:
 
 Writing Logs to Azure Blob Storage
