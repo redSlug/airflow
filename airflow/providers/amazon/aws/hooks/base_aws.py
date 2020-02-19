@@ -184,6 +184,9 @@ class AwsBaseHook(BaseHook):
 
                 endpoint_url = extra_config.get("host")
 
+                if not endpoint_url and connection_object.host and connection_object.port:
+                    endpoint_url = connection_object.get_uri()
+
             except AirflowException:
                 self.log.warning(
                     "Unable to use Airflow Connection for credentials.")
